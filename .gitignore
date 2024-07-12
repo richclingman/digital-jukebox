@@ -73,3 +73,5 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Corel Draw backups
+Backup_of_*

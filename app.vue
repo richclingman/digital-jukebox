@@ -6,7 +6,7 @@
       <div class="container px-3" style="max-width: 1024px;">
         <div class="navbar-brand">
           <nuxtLink to="/" class="navbar-item">
-            <img src="/icons/icon_192x192.png" alt="Rattlegram" class="" style="max-height: 50px;">
+            <img src="/android-chrome-192x192.png" alt="Digital Jukebox" class="" style="max-height: 50px;">
           </nuxtLink>
           <div class="navbar-burger" @click="navActive = !navActive">
             <span></span>
@@ -44,13 +44,9 @@
     <footer class="footer">
       <div class="container" style="max-width: 1024px;">
         <div class="content has-text-right">
-          <a href="https://k0ozk.com/">
-            <img src="/icons/k0ozk.svg" style="height: min-content; max-height: 100px;" alt="Rich Clingman, K0OZK">
-          </a>
           <p>
-            <a href="https://www.k0ozk.com/" class="pr-3">K0OZK</a>
             <br class="is-hidden-tablet"/>
-            &copy;Rich Clingman (K0OZK), Ozark, Missouri, USA
+            Rich Clingman (K0OZK), Ozark, Missouri, USA
           </p>
         </div>
       </div>
