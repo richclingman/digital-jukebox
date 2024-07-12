@@ -95,7 +95,7 @@ async function scrapeTopSongs(year) {
             console.log(`  ytVideoId: ${song.ytVideoId}`);
         });
 
-        writeFileSync(`./songs/${year}.json`, JSON.stringify(songs, null, 2));
+        writeFileSync(`../songs/${year}.json`, JSON.stringify(songs, null, 2));
     }
 
     for (var year = 1910; year < 2025; year += 10) {
