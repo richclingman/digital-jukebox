@@ -1,39 +1,21 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const {writeFileSync} = require("node:fs");
 
 const ytRegex = /\/vi\/([^/]*)\//;
 const host = 'https://playback.fm';
 
-async function scrapeTopSongs() {
+async function scrapeTopSongs(year) {
     try {
-        const url = `${host}/charts/top-100-songs/1980`;
+        const url = `${host}/charts/top-100-songs/${year}`;
         const response = await axios.get(url);
         const $ = cheerio.load(response.data);
 
         // Assuming the table has an ID of 'myTable'
         const songs = [];
 
-// Define an async function to fetch data from mobileHideUrl
-//         const fetchData = async (mobileHideUrl) => {
-//             try {
-//                 const mobileResponse = await axios.get(host + mobileHideUrl);
-//                 const mobileData = cheerio.load(mobileResponse.data);
-//                 const youtubeUrl = mobileData('meta[property="og:image"]').attr('content');
-//                 const ytMatches = youtubeUrl.match(ytRegex);
-//                 const ytVideoId = (ytMatches && ytMatches.length > 0) ? ytMatches[1] : '';
-//
-//                 return {
-//                     youtubeUrl,
-//                     ytVideoId,
-//                 };
-//             } catch (error) {
-//                 console.error(`Error fetching data from ${mobileHideUrl}:`, error.message);
-//                 return null;
-//             }
-//         };
-
         const fetchYoutubeId = async (mobileHideUrl) => {
-            console.log('fetchYoutubeId:', mobileHideUrl);
+            // console.log('fetchYoutubeId:', mobileHideUrl);
             try {
                 const mobileResponse = await axios.get(mobileHideUrl);
                 const mobileData = cheerio.load(mobileResponse.data);
@@ -65,7 +47,7 @@ async function scrapeTopSongs() {
 
                 // Fetch additional data from mobileHideUrl
                 const additionalData = await fetchYoutubeId(host + mobileHideUrl);
-                console.log('additionalData', additionalData);
+                // console.log('additionalData', additionalData);
 
                 if (additionalData) {
                     const item = {
@@ -93,21 +75,34 @@ async function scrapeTopSongs() {
 }
 
 (async function doIt() {
-    const songs = await scrapeTopSongs();
+
+    async function pullSongsOfTheYear(year) {
+        const songs = await scrapeTopSongs(year);
 
 // Print the scraped data
-    console.log('songs', songs);
+        console.log('songs', songs);
 
-    songs.forEach(song => {
-        console.log(`${song.rank}. ${song.title} - ${song.artist}`);
-        console.log(`  Artist rank: ${song.rank}`);
-        console.log(`  Artist title: ${song.title}`);
-        console.log(`  Artist artist: ${song.artist}`);
-        console.log(`  Artist URL: ${song.artistUrl}`);
-        console.log(`  Song URL: ${song.songUrl}`);
-        console.log(`  Meta URL: ${song.metaUrl}`);
-        console.log(`  Mobile Hide URL: ${song.mobileHideUrl}`);
-        console.log(`  youtubeUrl: ${song.youtubeUrl}`);
-        console.log(`  ytVideoId: ${song.ytVideoId}`);
-    });
+        songs.forEach(song => {
+            console.log(`${song.rank}. ${song.title} - ${song.artist}`);
+            console.log(`  Artist rank: ${song.rank}`);
+            console.log(`  Artist title: ${song.title}`);
+            console.log(`  Artist artist: ${song.artist}`);
+            console.log(`  Artist URL: ${song.artistUrl}`);
+            console.log(`  Song URL: ${song.songUrl}`);
+            console.log(`  Meta URL: ${song.metaUrl}`);
+            console.log(`  Mobile Hide URL: ${song.mobileHideUrl}`);
+            console.log(`  youtubeUrl: ${song.youtubeUrl}`);
+            console.log(`  ytVideoId: ${song.ytVideoId}`);
+        });
+
+        writeFileSync(`./songs/${year}.json`, JSON.stringify(songs, null, 2));
+    }
+
+    for (var year = 1910; year < 2025; year += 10) {
+        console.log('\n\n*************', year);
+
+        // TODO: Skip if songs/[year].json already exists
+
+        await pullSongsOfTheYear(year);
+    }
 })();
