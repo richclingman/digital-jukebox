@@ -1,17 +1,30 @@
 {
-  "name": "digital-jukebox",
+  "name": "k0ozk",
   "version": "1.0.0",
-  "description": "Rich Clingman, Ozark, Missouri, USA",
-  "main": "scrape-fm.js",
+  "private": false,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "bump": "npm version patch"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "devDependencies": {
+    "@nuxt/content": "^2.7.2",
+    "@nuxt/devtools": "latest",
+    "@types/node": "^18.17.3",
+    "@vite-pwa/nuxt": "^0.1.0",
+    "nuxt": "^3.6.5",
+    "sass": "^1.63.3",
+    "sass-loader": "^10.4.1"
+  },
   "dependencies": {
-    "axios": "^1.7.2",
-    "cheerio": "^1.0.0-rc.12",
-    "puppeteer": "^22.13.0"
-  }
+    "@vueuse/components": "^10.1.2",
+    "@vueuse/core": "^10.1.2",
+    "@vueuse/integrations": "^10.1.2",
+    "@vueuse/nuxt": "^10.1.2",
+    "bulma": "^0.9.4"
+  },
+  "author": "Rich Clingman, K0OZK"
 }
