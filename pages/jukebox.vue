@@ -2,7 +2,11 @@
   <div class="jukebox">
     <div class="left-bar">
       <img src="/img/jukebox_8676230.png" alt="Image of jukebox" />
-      <div class="brand">Digital Jukebox</div>
+      <div class="brand">
+        Gene &amp; Gigi's
+        <br>
+        Digital Jukebox
+      </div>
 
       <button v-for="genre in genres" class="genre" @click="doGenre(genre)">{{genre}}</button>
     </div>
@@ -51,6 +55,7 @@ $left-bar-color: burlywood
     text-align: center
     font-weight: bolder
     font-size: 20px
+    margin-bottom: 15px
   .genre
     width: 100%
     height: 50px
