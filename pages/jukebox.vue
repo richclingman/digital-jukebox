@@ -8,6 +8,12 @@
         Digital Jukebox
       </div>
 
+      <div class="selected-values">
+        <div>{{selectedGenre}}</div>
+        <div>{{selectedDecade}}'s</div>
+        <div>{{selectedYear}}</div>
+      </div>
+
       <button v-for="genre in genres" class="genre" @click="doGenre(genre)">{{ genre }}</button>
     </div>
 
@@ -29,7 +35,19 @@ definePageMeta({
   layout: 'clean'
 })
 
+const selectedGenre = ref('Top 100');
+const selectedDecade = ref('--');
+const selectedYear = ref('--');
+
+const decades = ref([1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020]);
+const years = ref([]);
+
+const genres = ref(['Top 100', 'Country', 'Rock & Roll', 'R & B']);
+
 const doDecade = (decade) => {
+  selectedDecade.value = decade;
+  selectedYear.value = '--';
+
   years.value = [];
   for (let year = decade; year < decade + 10; year++) {
     years.value.push(year);
@@ -37,18 +55,13 @@ const doDecade = (decade) => {
 }
 
 const doYear = (year) => {
-  alert(`year ${year}`)
+  selectedYear.value = year;
 }
 
 
 const doGenre = (genre) => {
-  alert(`genre ${genre}`)
+  selectedGenre.value = genre;
 }
-
-const decades = ref([1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020]);
-const years = ref([]);
-
-const genres = ref(['Top 100', 'Country', 'Rock & Roll', 'R & B']);
 </script>
 
 <style scoped lang="sass">
@@ -77,6 +90,16 @@ $left-bar-color: burlywood
       font-size: 20px
       margin-bottom: 15px
 
+    .selected-values
+      margin: 20px
+      border: 2px solid green
+      border-radius: 10px
+
+      div
+        font-size: 1.2em
+        text-align: center
+        font-weight: bold
+
     .genre
       width: 100%
       height: 50px
@@ -86,7 +109,7 @@ $left-bar-color: burlywood
       text-align: center
       vert-align: middle
       font-weight: bold
-      font-size: 20px
+      font-size: 1.5em
       padding: 0
 
   .main
