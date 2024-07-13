@@ -4,8 +4,9 @@
       <img src="/img/jukebox_8676230.png" alt="Image of jukebox" />
       <div class="brand">Digital Jukebox</div>
 
-      <button v-for="genre in genres" class="genre" @click="doDecade(genre)">{{genre}}</button>
+      <button v-for="genre in genres" class="genre" @click="doGenre(genre)">{{genre}}</button>
     </div>
+    
     <div class="fullwidth">
       <button v-for="decade in decades" class="decade" @click="doDecade(decade)">{{ decade }}</button>
     </div>
