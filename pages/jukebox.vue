@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="jukebox">
+    <div class="left-bar"></div>
     <div class="fullwidth">
-      <div v-for="decade in decades" class="box">{{decade}}</div>
+      <div v-for="decade in decades" class="box">{{ decade }}</div>
     </div>
   </div>
 </template>
@@ -19,8 +20,19 @@ const decades = ref([1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990,
 $background-color: #f0f0f0
 $box-background-color: #ccc
 $box-border-color: #999
+$left-bar-color: burlywood
+
+.jukebox
+  display: flex
+  height: 100vw
+  width: 100hw
+
+.left-bar
+  width: 225px
+  background-color: $left-bar-color
 
 .fullwidth
+  flex: 1
   display: flex
   justify-content: space-between
   align-items: flex-start
