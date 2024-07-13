@@ -5,9 +5,11 @@ const {writeFileSync} = require("node:fs");
 const ytRegex = /\/vi\/([^/]*)\//;
 const host = 'https://playback.fm';
 
-async function scrapeTopSongs(year) {
+async function scrapeTopSongs(genre, year) {
     try {
-        const url = `${host}/charts/top-100-songs/${year}`;
+        const url = `${host}/charts/${genre}/${year}`;
+        console.log('>>', url);
+
         const response = await axios.get(url);
         const $ = cheerio.load(response.data);
 
@@ -76,12 +78,15 @@ async function scrapeTopSongs(year) {
 
 (async function doIt() {
 
-    async function pullSongsOfTheYear(year) {
-        const songs = await scrapeTopSongs(year);
+    async function pullSongsOfTheYear(genre , year) {
+        const songs = await scrapeTopSongs(genre, year);
 
 // Print the scraped data
         console.log('songs', songs);
 
+        if (!songs) {
+            return;
+        }
         songs.forEach(song => {
             console.log(`${song.rank}. ${song.title} - ${song.artist}`);
             console.log(`  Artist rank: ${song.rank}`);
@@ -95,14 +100,19 @@ async function scrapeTopSongs(year) {
             console.log(`  ytVideoId: ${song.ytVideoId}`);
         });
 
-        writeFileSync(`../songs/${year}.json`, JSON.stringify(songs, null, 2));
+        writeFileSync(`../songs/${genre}/${year}.json`, JSON.stringify(songs, null, 2));
     }
 
-    for (var year = 1910; year < 2025; year += 10) {
-        console.log('\n\n*************', year);
+    const genres = ['top-100-songs', 'rock', 'country', 'rnb'];
 
-        // TODO: Skip if songs/[year].json already exists
+    for (let genre of genres) {
+        // TODO: use date.year instead of "2024"
+        for (let year = 1900; year <= 2024; year += 10) {
+            console.log('\n\n*************', genre, year);
 
-        await pullSongsOfTheYear(year);
+            // TODO: Skip if songs/[year].json already exists
+
+            await pullSongsOfTheYear(genre, year);
+        }
     }
 })();
