@@ -1,6 +1,9 @@
 <template>
   <div class="jukebox">
-    <div class="left-bar"></div>
+    <div class="left-bar">
+      <img src="/img/jukebox_8676230.png" alt="Image of jukebox" />
+      <div class="brand">Digital Jukebox</div>
+    </div>
     <div class="fullwidth">
       <div v-for="decade in decades" class="box">{{ decade }}</div>
     </div>
@@ -26,6 +29,14 @@ $left-bar-color: burlywood
   display: flex
   height: 100vw
   width: 100hw
+
+  img
+    margin-top: 5px
+  .brand
+    width: 100%
+    text-align: center
+    font-weight: bolder
+    font-size: 20px
 
 .left-bar
   width: 225px
