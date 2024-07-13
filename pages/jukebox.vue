@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>This is the full-page jukebox</h1>
+    <div class="fullwidth">
+      <div v-for="decade in decades" class="box">{{decade}}</div>
+    </div>
   </div>
 </template>
 
@@ -8,4 +10,27 @@
 definePageMeta({
   layout: 'clean'
 })
+
+const decades = ref([1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020]);
+
 </script>
+
+<style scoped lang="sass">
+$background-color: #f0f0f0
+$box-background-color: #ccc
+$box-border-color: #999
+
+.fullwidth
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
+  height: 50px
+  background-color: $background-color
+
+  .box
+    flex: 1
+    height: 100%
+    background-color: $box-background-color
+    border: 1px solid $box-border-color
+    box-sizing: border-box
+</style>
