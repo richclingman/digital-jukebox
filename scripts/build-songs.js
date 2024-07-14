@@ -12,8 +12,16 @@ const genres = ['top-100-songs', 'rock', 'country', 'rnb'];
 for (let genre of genres) {
     songList[genre] = {};
 
+    let decade = 0;
     for (let year = 1900; year <= 2024; ++year) {
-        songList[genre][year] = {};
+        console.log('dec', decade, year, year % 10);
+        if (year % 10 === 0) {
+            decade = year;
+            console.log('decade', decade)
+            songList[genre][decade] = {};
+        }
+
+        songList[genre][decade][year] = {};
 
         const filename = `../songs/${genre}/${year}.json`;
 
@@ -29,7 +37,7 @@ for (let genre of genres) {
         // console.log('songList', songList);
 
         for (let song of songs) {
-            songList[genre][year][song.rank] = song;
+            songList[genre][decade][year][song.rank] = song;
         }
 
         // process.exit(1);
@@ -38,7 +46,7 @@ for (let genre of genres) {
 
     // console.log('songlist', JSON.stringify(songList, null, 2));
 
-    writeFileSync('../public/songList.json', JSON.stringify(songList, null, 2));
+    writeFileSync('../assets/songList.json', JSON.stringify(songList, null, 2));
 
 }
 

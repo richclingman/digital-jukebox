@@ -7,9 +7,10 @@ author: Rich Clingman, K0OZK
 # digital-jukebox
 
 <div class="small-mobile" style="float: right; width: 250px; text-align: center">
+<a href='/jukebox'>
 <img src="/img/jukebox_8676230.png" alt="Image of an old-fashioned jukebox"></img>
 <p class="is-size-7">Jukebox image from pngtree.com</p>
-
+</a>
 </div>
 
 Rich Clingman, Ozark, Missouri, USA
