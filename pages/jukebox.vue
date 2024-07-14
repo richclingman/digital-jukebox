@@ -9,59 +9,85 @@
       </div>
 
       <div class="selected-values">
-        <div>{{selectedGenre}}</div>
-        <div>{{selectedDecade}}'s</div>
-        <div>{{selectedYear}}</div>
+        <div>{{ selectedGenre[0] }}</div>
+        <div>{{ selectedDecade }}'s</div>
+        <div>{{ selectedYear }}</div>
       </div>
 
-      <button v-for="genre in genres" class="genre" @click="doGenre(genre)">{{ genre }}</button>
+      <button v-for="genre in genres" class="genre" @click="changeGenre(genre)">{{ genre[0] }}</button>
     </div>
 
     <div class="main">
       <div class="fullwidth">
-        <button v-for="decade in decades" class="decade" @click="doDecade(decade)">{{ decade }}</button>
+        <button v-for="decade in decades" class="decade" @click="changeDecade(decade)">{{ decade }}</button>
       </div>
 
       <div class="years">
-        <button v-for="year in years" class="decade" @click="doYear(year)">{{ year }}</button>
+        <button v-for="year in years" class="decade" @click="changeYear(year)">{{ year }}</button>
       </div>
     </div>
 
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+const songList = await import('~/assets/songList.json');
+
+console.warn(songList['country'][1970][1971][32]);
+
 definePageMeta({
   layout: 'clean'
 })
 
-const selectedGenre = ref('Top 100');
-const selectedDecade = ref('--');
-const selectedYear = ref('--');
+const genres = ref([
+  ['Top 100', 'top-100-songs'],
+  ['Country', 'country'],
+  ['Rock & Roll', 'rock'],
+  ['R & B', 'rnb']
+]);
+const selectedGenre = ref(genres.value[0]);
+const selectedDecade = ref('1970');
+const selectedYear = ref('1971');
+const selectedSong = ref('32');
+
+const validDecades = ref([]);
+const validYears = ref([]);
+
+console.log('selectedGenre', selectedGenre.value);
+console.log('selectedDecade', selectedDecade.value);
+console.log('selectedYear', selectedYear.value);
+console.log('selectedSong', selectedSong.value);
 
 const decades = ref([1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020]);
 const years = ref([]);
 
-const genres = ref(['Top 100', 'Country', 'Rock & Roll', 'R & B']);
+const changeGenre = (genre) => {
+  selectedGenre.value = genre;
 
-const doDecade = (decade) => {
+  validDecades.value = songList[selectedGenre.value];
+  changeDecade(selectedDecade);
+}
+
+const changeDecade = (decade) => {
   selectedDecade.value = decade;
-  selectedYear.value = '--';
 
+  validYears.value = songList[selectedGenre.value][selectedDecade.value];
   years.value = [];
+
   for (let year = decade; year < decade + 10; year++) {
     years.value.push(year);
   }
+
+  changeYear(decade);
 }
 
-const doYear = (year) => {
+const changeYear = (year) => {
   selectedYear.value = year;
 }
 
+// changeGenre('top-100-songs'); // ************ SET UP ALL BUTTONS
 
-const doGenre = (genre) => {
-  selectedGenre.value = genre;
-}
+
 </script>
 
 <style scoped lang="sass">
