@@ -100,8 +100,6 @@ $left-bar-color: burlywood
   display: grid
   grid-template-columns: 225px 1fr
   column-gap: 0
-  height: 100vw
-  width: 100vw
 
   .left-bar
     background-color: $left-bar-color
