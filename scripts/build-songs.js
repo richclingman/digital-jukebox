@@ -4,7 +4,7 @@
 // read json
 // append to songs.json
 
-const {existsSync, writeFileSync} = require("node:fs");
+import {existsSync, readFileSync, writeFileSync} from "node:fs";
 
 
 const songList = {};
@@ -18,10 +18,7 @@ for (let genre of genres) {
         if (year % 10 === 0) {
             decade = year;
             console.log('decade', decade)
-            songList[genre][decade] = {};
         }
-
-        songList[genre][decade][year] = {};
 
         const filename = `../songs/${genre}/${year}.json`;
 
@@ -31,11 +28,21 @@ for (let genre of genres) {
         if (!exists) {
             continue;
         }
-        const songs = require(filename)
+        const songsJson = readFileSync(filename);
+        const songs = JSON.parse(songsJson.toString());
+
+        if (songs.length === 0) {
+            continue;
+        }
 
         // console.log(songs[0]);
         // console.log('songList', songList);
 
+        if (songList[genre][decade] === undefined) {
+            songList[genre][decade] = {};
+        }
+
+        songList[genre][decade][year] = {};
         for (let song of songs) {
             songList[genre][decade][year][song.rank] = song;
         }
