@@ -9,7 +9,7 @@
 <style lang="sass">
 .clean
   max-width: none
-  height: 100vh
-  width: 100%
+  height: 100vw
+  width: 100hw
   background: lightcyan
 </style>

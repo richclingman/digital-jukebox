@@ -2,6 +2,7 @@
   "name": "digital-jukebox",
   "version": "1.0.0",
   "private": false,
+  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",

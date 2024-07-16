@@ -1,35 +1,3 @@
-<template>
-  <div class="jukebox">
-    <div class="left-bar">
-      <img src="/img/jukebox_8676230.png" alt="Image of jukebox"/>
-      <div class="brand">
-        Gene &amp; Gigi's
-        <br>
-        Digital Jukebox
-      </div>
-
-      <div class="selected-values">
-        <div>{{ selectedGenre[0] }}</div>
-        <div>{{ selectedDecade }}'s</div>
-        <div>{{ selectedYear }}</div>
-      </div>
-
-      <button v-for="genre in genres" class="genre" @click="changeGenre(genre)">{{ genre[0] }}</button>
-    </div>
-
-    <div class="main">
-      <div class="fullwidth">
-        <button v-for="decade in decades" class="decade" @click="changeDecade(decade)">{{ decade }}</button>
-      </div>
-
-      <div class="years">
-        <button v-for="year in years" class="decade" @click="changeYear(year)">{{ year }}</button>
-      </div>
-    </div>
-
-  </div>
-</template>
-
 <script setup>
 const songList = await import('~/assets/songList.json');
 
@@ -40,10 +8,10 @@ definePageMeta({
 })
 
 const genres = ref([
-  ['Top 100', 'top-100-songs'],
-  ['Country', 'country'],
-  ['Rock & Roll', 'rock'],
-  ['R & B', 'rnb']
+  {name: 'Top 100', key: 'top-100-songs'},
+  {name: 'Country', key: 'country'},
+  {name: 'Rock & Roll', key: 'rock'},
+  {name: 'R & B', key: 'rnb'},
 ]);
 const selectedGenre = ref(genres.value[0]);
 const selectedDecade = ref('1970');
@@ -64,21 +32,27 @@ const years = ref([]);
 const changeGenre = (genre) => {
   selectedGenre.value = genre;
 
-  validDecades.value = songList[selectedGenre.value];
+  validDecades.value = songList[selectedGenre.value.key];
   changeDecade(selectedDecade);
 }
 
 const changeDecade = (decade) => {
   selectedDecade.value = decade;
 
-  validYears.value = songList[selectedGenre.value][selectedDecade.value];
+  console.log('songList', songList.country[1970]);
+  console.log('G', selectedGenre.value);
+  console.log('-', songList[selectedGenre.value.key]);
+  console.log('D', selectedDecade.value);
+  console.log('-', songList[selectedGenre.value.key][selectedDecade.value]);
+
+  validYears.value = songList[selectedGenre.value.key][selectedDecade.value];
   years.value = [];
 
   for (let year = decade; year < decade + 10; year++) {
     years.value.push(year);
   }
 
-  changeYear(decade);
+  // changeYear(decade);
 }
 
 const changeYear = (year) => {
@@ -90,6 +64,38 @@ const changeYear = (year) => {
 
 </script>
 
+<template>
+  <div class="jukebox">
+    <div class="left-bar">
+      <img src="/img/jukebox_8676230.png" alt="Image of jukebox"/>
+      <div class="brand">
+        Gene &amp; Gigi's
+        <br>
+        Digital Jukebox
+      </div>
+
+      <div class="selected-values">
+        <div>{{ selectedGenre.name }}</div>
+        <div>{{ selectedDecade }}'s</div>
+        <div>{{ selectedYear }}</div>
+      </div>
+
+      <button v-for="genre in genres" class="genre" @click="changeGenre(genre)">{{ genre.name }}</button>
+    </div>
+
+    <div class="main">
+      <div class="fullwidth">
+        <button v-for="decade in decades" class="decade" @click="changeDecade(decade)">{{ decade }}</button>
+      </div>
+
+      <div class="years">
+        <button v-for="year in years" class="decade" @click="changeYear(year)">{{ year }}</button>
+      </div>
+    </div>
+
+  </div>
+</template>
+
 <style scoped lang="sass">
 $background-color: #f0f0f0
 $box-background-color: #ccc
@@ -100,6 +106,8 @@ $left-bar-color: burlywood
   display: grid
   grid-template-columns: 225px 1fr
   column-gap: 0
+  height: 100vw
+  width: 100vw
 
   .left-bar
     background-color: $left-bar-color
