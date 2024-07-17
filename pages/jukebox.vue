@@ -1,7 +1,20 @@
 <script setup>
-const songList = await import('~/assets/songList.json');
+// const response = await useFetch('/data/songList.json')
+// console.log('response', response);
+//
+// process.exit(1);
 
-console.warn(songList['country'][1970][1971][32]);
+import songList from '/static/data/songList.json' // assert {type: 'json'}
+
+// import {readFileSync} from "node:fs";
+//
+// const songListJson = readFileSync('~/assets/songList.json');
+// const songList = JSON.parse(songListJson.toString());
+// console.log('songListBuffer', songListBuffer);
+
+// const songList = songListBuffer.toString();
+// console.log('songList keys', Object.keys(songListBuffer.value));
+console.log('songList', songList);
 
 definePageMeta({
   layout: 'clean'
@@ -13,46 +26,73 @@ const genres = ref([
   {name: 'Rock & Roll', key: 'rock'},
   {name: 'R & B', key: 'rnb'},
 ]);
-const selectedGenre = ref(genres.value[0]);
-const selectedDecade = ref('1970');
-const selectedYear = ref('1971');
-const selectedSong = ref('32');
+const selectedGenre = ref({});
+const selectedDecade = ref('');
+const selectedYear = ref('');
+const selectedSong = ref('');
 
 const validDecades = ref([]);
 const validYears = ref([]);
-
-console.log('selectedGenre', selectedGenre.value);
-console.log('selectedDecade', selectedDecade.value);
-console.log('selectedYear', selectedYear.value);
-console.log('selectedSong', selectedSong.value);
 
 const decades = ref([1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020]);
 const years = ref([]);
 
 const changeGenre = (genre) => {
-  selectedGenre.value = genre;
+  try {
+    selectedGenre.value = genre;
+    console.log('selectedGenre', selectedGenre.value);
 
-  validDecades.value = songList[selectedGenre.value.key];
-  changeDecade(selectedDecade);
+    console.log('selectedGenre.value.key', selectedGenre.value.key);
+
+    validDecades.value = songList[selectedGenre.value.key];
+    console.log('validDecades', validDecades.value);
+    // changeDecade(selectedDecade);
+  } catch (error) {
+    console.error('ERROR:', error);
+  }
+}
+
+const isDecadeValid = (decade) => {
+  try {
+    const valid = validDecades.value[decade] !== undefined;
+    console.log('valid decade', decade, valid, validDecades.value[decade]);
+    return valid;
+  } catch (error) {
+    console.error('ERROR:', error);
+  }
 }
 
 const changeDecade = (decade) => {
-  selectedDecade.value = decade;
+  try {
+    selectedDecade.value = decade;
 
-  console.log('songList', songList.country[1970]);
-  console.log('G', selectedGenre.value);
-  console.log('-', songList[selectedGenre.value.key]);
-  console.log('D', selectedDecade.value);
-  console.log('-', songList[selectedGenre.value.key][selectedDecade.value]);
+    console.log('songList', songList.country[1970]);
+    console.log('G', selectedGenre.value);
+    console.log('-', songList[selectedGenre.value.key]);
+    console.log('D', selectedDecade.value);
+    console.log('-', songList[selectedGenre.value.key][selectedDecade.value]);
 
-  validYears.value = songList[selectedGenre.value.key][selectedDecade.value];
-  years.value = [];
+    validYears.value = songList[selectedGenre.value.key][selectedDecade.value];
+    years.value = [];
 
-  for (let year = decade; year < decade + 10; year++) {
-    years.value.push(year);
+    for (let year = decade; year < decade + 10; year++) {
+      years.value.push(year);
+    }
+
+    // changeYear(decade);
+  } catch (error) {
+    console.error('ERROR:', error);
   }
+}
 
-  // changeYear(decade);
+const isYearValid = (year) => {
+  try {
+    const valid = validYears.value[year] !== undefined;
+    // console.log('valid year', year, valid, validYears.value[year]);
+    return valid;
+  } catch (error) {
+    console.error('ERROR:', error);
+  }
 }
 
 const changeYear = (year) => {
@@ -61,6 +101,18 @@ const changeYear = (year) => {
 
 // changeGenre('top-100-songs'); // ************ SET UP ALL BUTTONS
 
+console.warn('COUNTRY EXAMPLE:', songList['country'][1970][1971][32]);
+
+const startupGenre = genres.value[1];
+console.log('start up with genre', startupGenre);
+changeGenre(startupGenre);
+changeDecade(1970);
+changeYear(1974);
+
+console.log('selectedGenre', selectedGenre.value);
+// console.log('selectedDecade', selectedDecade.value);
+// console.log('selectedYear', selectedYear.value);
+// console.log('selectedSong', selectedSong.value);
 
 </script>
 
@@ -85,11 +137,16 @@ const changeYear = (year) => {
 
     <div class="main">
       <div class="fullwidth">
-        <button v-for="decade in decades" class="decade" @click="changeDecade(decade)">{{ decade }}</button>
+        <button v-for="decade in decades" class="decade" @click="changeDecade(decade)"
+                :disabled="!isDecadeValid(decade)">{{ decade }}
+        </button>
       </div>
 
       <div class="years">
-        <button v-for="year in years" class="decade" @click="changeYear(year)">{{ year }}</button>
+        <button v-for="year in years" class="decade" @click="changeYear(year)" :disabled="!isYearValid(year)">{{
+            year
+          }}
+        </button>
       </div>
     </div>
 
@@ -99,6 +156,7 @@ const changeYear = (year) => {
 <style scoped lang="sass">
 $background-color: #f0f0f0
 $box-background-color: #ccc
+$box-disabled-background-color: #444
 $box-border-color: #999
 $left-bar-color: burlywood
 
@@ -154,13 +212,16 @@ $left-bar-color: burlywood
       height: 50px
       background-color: $background-color
 
-      .decade
+      button.decade
         flex: 1
         height: 100%
         background-color: $box-background-color
         border: 1px solid $box-border-color
         box-sizing: border-box
         font-weight: bold
+
+      //&:disabled
+      //  background-color: $box-disabled-background-color
 
     .years
       margin-top: 10px
