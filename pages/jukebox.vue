@@ -1,8 +1,6 @@
 <script setup>
 // const response = await useFetch('/data/songList.json')
 // console.log('response', toRaw(response));
-//
-// process.exit(1);
 
 import songList from '/static/data/songList.json' // assert {type: 'json'}
 
@@ -71,20 +69,12 @@ const changeDecade = (decade) => {
   try {
     console.log('new decade', decade, typeof decade)
 
-    //TODO: If decade not valid for this genre, select valid decade
     if (!isDecadeValid(decade)) {
       decade = validDecades.value[0];
       console.error('isDecadeValid?', decade, validDecades.value);
     }
 
     selectedDecade.value = decade;
-
-
-    // console.log('songList', songList.country[1970]);
-    // console.log('G', selectedGenre.value);
-    // console.log('-', songList[selectedGenre.value.key]);
-    // console.log('D', selectedDecade.value);
-    // console.log('-', songList[selectedGenre.value.key][selectedDecade.value]);
 
     const selectedGenreKey = selectedGenre.value.key;
     console.log('selectedGenre.value.key', selectedGenreKey);
@@ -93,7 +83,6 @@ const changeDecade = (decade) => {
     console.log('songListYears', songListYears);
 
     validYears.value = Object.keys(songListYears).map(d => parseInt(d));
-    // validYears.value = songList[selectedGenre.value.key][selectedDecade.value];
     years.value = [];
 
     // TODO: use date.year instead of 2024
@@ -111,12 +100,9 @@ const changeDecade = (decade) => {
   }
 }
 
-// TODO: Make validYears an array of int. Use ....value.includes(year) as test
-
 const isYearValid = (year) => {
   try {
     const valid = validYears.value.includes(year);
-    // const valid = validYears.value[year] !== undefined;
     console.log('valid year', year, valid);
     return valid;
   } catch (error) {
@@ -128,7 +114,6 @@ const changeYear = (year) => {
 
   console.log('changeYear', year);
 
-  //TODO: If year not valid for this genre/decade, select valid year
   if (!isYearValid(year)) {
     year = validYears.value[0];
     console.error('isDecadeValid?', year, validYears.value);
@@ -137,8 +122,6 @@ const changeYear = (year) => {
   selectedYear.value = year;
 }
 
-// changeGenre('top-100-songs'); // ************ SET UP ALL BUTTONS
-
 console.warn('COUNTRY EXAMPLE:', songList['country'][1970][1971][32]);
 
 const startupGenre = genres.value[1];
@@ -146,11 +129,6 @@ console.log('start up with genre', startupGenre);
 changeGenre(startupGenre);
 changeDecade(1970);
 changeYear(1974);
-
-// console.log('selectedGenre', selectedGenre.value);
-// console.log('selectedDecade', selectedDecade.value);
-// console.log('selectedYear', selectedYear.value);
-// console.log('selectedSong', selectedSong.value);
 
 </script>
 
@@ -278,7 +256,5 @@ $left-bar-color: burlywood
     .separator
       margin-top: 20px
       text-align: center
-
-
 
 </style>
