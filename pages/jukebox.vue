@@ -48,10 +48,7 @@ const changeGenre = (genre) => {
     const songListDecades = songList[selectedGenreKey];
     console.log('songListDecades', songListDecades);
 
-    const decadeList = Object.keys(songListDecades).map(d => parseInt(d));
-    console.log('decadeList', decadeList);
-
-    validDecades.value = decadeList;
+    validDecades.value = Object.keys(songListDecades).map(d => parseInt(d));
     console.log('validDecades', validDecades.value);
 
     changeDecade(selectedDecade);
@@ -89,7 +86,14 @@ const changeDecade = (decade) => {
     // console.log('D', selectedDecade.value);
     // console.log('-', songList[selectedGenre.value.key][selectedDecade.value]);
 
-    validYears.value = songList[selectedGenre.value.key][selectedDecade.value];
+    const selectedGenreKey = selectedGenre.value.key;
+    console.log('selectedGenre.value.key', selectedGenreKey);
+
+    const songListYears = songList[selectedGenreKey][selectedDecade.value];
+    console.log('songListYears', songListYears);
+
+    validYears.value = Object.keys(songListYears).map(d => parseInt(d));
+    // validYears.value = songList[selectedGenre.value.key][selectedDecade.value];
     years.value = [];
 
     // TODO: use date.year instead of 2024
@@ -107,8 +111,9 @@ const changeDecade = (decade) => {
 
 const isYearValid = (year) => {
   try {
-    const valid = validYears.value[year] !== undefined;
-    console.log('valid year', year, valid, validYears.value[year]);
+    const valid = validYears.value.includes(year);
+    // const valid = validYears.value[year] !== undefined;
+    console.log('valid year', year, valid);
     return valid;
   } catch (error) {
     console.error('ERROR:', error);
