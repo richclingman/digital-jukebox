@@ -53,7 +53,7 @@ for (let genre of genres) {
 
     // console.log('songlist', JSON.stringify(songList, null, 2));
 
-    writeFileSync('../assets/songList.json', JSON.stringify(songList, null, 2));
+    writeFileSync('../static/data/songList.json', JSON.stringify(songList, null, 2));
 
 }
 
