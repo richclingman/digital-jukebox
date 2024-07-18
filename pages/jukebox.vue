@@ -51,7 +51,7 @@ const changeGenre = (genre) => {
     validDecades.value = Object.keys(songListDecades).map(d => parseInt(d));
     console.log('validDecades', validDecades.value);
 
-    changeDecade(selectedDecade);
+    changeDecade(selectedDecade.value);
   } catch (error) {
     console.error('ERROR:', error);
   }
@@ -101,7 +101,11 @@ const changeDecade = (decade) => {
       years.value.push(year);
     }
 
-    changeYear(decade);
+    if (!years.value.includes(selectedYear.value)) {
+      selectedYear.value = years.value[0];
+    }
+
+    changeYear(selectedYear.value);
   } catch (error) {
     console.error('ERROR:', error);
   }
@@ -122,7 +126,13 @@ const isYearValid = (year) => {
 
 const changeYear = (year) => {
 
+  console.log('changeYear', year);
+
   //TODO: If year not valid for this genre/decade, select valid year
+  if (!isYearValid(year)) {
+    year = validYears.value[0];
+    console.error('isDecadeValid?', year, validYears.value);
+  }
 
   selectedYear.value = year;
 }
