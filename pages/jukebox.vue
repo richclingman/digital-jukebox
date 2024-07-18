@@ -1,4 +1,11 @@
 <script setup>
+
+const startupSettings = {
+  genreIndex: 1,
+  decade: 1970,
+  year: 1974,
+}
+
 // const response = await useFetch('/data/songList.json')
 // console.log('response', toRaw(response));
 
@@ -38,16 +45,9 @@ const years = ref([]);
 const changeGenre = (genre) => {
   try {
     selectedGenre.value = genre;
-    console.log('selectedGenre', selectedGenre.value);
-
     const selectedGenreKey = selectedGenre.value.key;
-    console.log('selectedGenre.value.key', selectedGenreKey);
-
     const songListDecades = songList[selectedGenreKey];
-    console.log('songListDecades', songListDecades);
-
     validDecades.value = Object.keys(songListDecades).map(d => parseInt(d));
-    console.log('validDecades', validDecades.value);
 
     changeDecade(selectedDecade.value);
   } catch (error) {
@@ -58,7 +58,6 @@ const changeGenre = (genre) => {
 const isDecadeValid = (decade) => {
   try {
     const valid = validDecades.value.includes(decade);
-    console.log('valid decade', decade, typeof decade, valid, validDecades.value[decade]);
     return valid;
   } catch (error) {
     console.error('ERROR:', error);
@@ -67,21 +66,14 @@ const isDecadeValid = (decade) => {
 
 const changeDecade = (decade) => {
   try {
-    console.log('new decade', decade, typeof decade)
-
     if (!isDecadeValid(decade)) {
       decade = validDecades.value[0];
-      console.error('isDecadeValid?', decade, validDecades.value);
     }
 
     selectedDecade.value = decade;
 
     const selectedGenreKey = selectedGenre.value.key;
-    console.log('selectedGenre.value.key', selectedGenreKey);
-
     const songListYears = songList[selectedGenreKey][selectedDecade.value];
-    console.log('songListYears', songListYears);
-
     validYears.value = Object.keys(songListYears).map(d => parseInt(d));
     years.value = [];
 
@@ -103,7 +95,6 @@ const changeDecade = (decade) => {
 const isYearValid = (year) => {
   try {
     const valid = validYears.value.includes(year);
-    console.log('valid year', year, valid);
     return valid;
   } catch (error) {
     console.error('ERROR:', error);
@@ -111,24 +102,20 @@ const isYearValid = (year) => {
 }
 
 const changeYear = (year) => {
-
-  console.log('changeYear', year);
-
   if (!isYearValid(year)) {
     year = validYears.value[0];
-    console.error('isDecadeValid?', year, validYears.value);
   }
 
   selectedYear.value = year;
 }
 
-console.warn('COUNTRY EXAMPLE:', songList['country'][1970][1971][32]);
+const startupGenre = genres.value[startupSettings.genreIndex];
 
-const startupGenre = genres.value[1];
-console.log('start up with genre', startupGenre);
+console.warn('START UP WITH GENRE:', startupGenre);
+
 changeGenre(startupGenre);
-changeDecade(1970);
-changeYear(1974);
+changeDecade(startupSettings.decade);
+changeYear(startupSettings.year);
 
 </script>
 
