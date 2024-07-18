@@ -27,8 +27,8 @@ const genres = ref([
   {name: 'R & B', key: 'rnb'},
 ]);
 const selectedGenre = ref({});
-const selectedDecade = ref('');
-const selectedYear = ref('');
+const selectedDecade = ref(0);
+const selectedYear = ref(0);
 const selectedSong = ref('');
 
 const validDecades = ref([]);
@@ -170,18 +170,18 @@ changeYear(1974);
         <div>{{ selectedYear }}</div>
       </div>
 
-      <button v-for="genre in genres" class="genre" @click="changeGenre(genre)">{{ genre.name }}</button>
+      <button v-for="genre in genres" class="genre" :class="{selected: selectedGenre === genre}" @click="changeGenre(genre)">{{ genre.name }}</button>
     </div>
 
     <div class="main">
       <div class="fullwidth">
-        <button v-for="decade in decades" class="decade" @click="changeDecade(decade)"
+        <button v-for="decade in decades" class="decade" :class="{selected: selectedDecade === decade}" @click="changeDecade(decade)"
                 :disabled="!isDecadeValid(decade)">{{ decade }}
         </button>
       </div>
 
       <div class="years">
-        <button v-for="year in years" class="decade" @click="changeYear(year)" :disabled="!isYearValid(year)">
+        <button v-for="year in years" class="decade" :class="{selected: selectedYear === year}" @click="changeYear(year)" :disabled="!isYearValid(year)">
           {{ year }}
         </button>
       </div>
@@ -193,7 +193,7 @@ changeYear(1974);
 <style scoped lang="sass">
 $background-color: #f0f0f0
 $box-background-color: #ccc
-$box-disabled-background-color: #444
+$box-selected-background-color: aliceblue
 $box-border-color: #999
 $left-bar-color: burlywood
 
@@ -239,6 +239,9 @@ $left-bar-color: burlywood
       font-size: 1.5em
       padding: 0
 
+      &.selected
+        background-color: $box-selected-background-color
+
   .main
     width: 100%
 
@@ -257,17 +260,25 @@ $left-bar-color: burlywood
         box-sizing: border-box
         font-weight: bold
 
-      //&:disabled
-      //  background-color: $box-disabled-background-color
+        &.selected
+          background-color: $box-selected-background-color
 
     .years
       margin-top: 10px
 
       button
         width: 75px
+        background-color: $box-background-color
+        border: 1px solid $box-border-color
+
+        &.selected
+          background-color: $box-selected-background-color
+
 
     .separator
       margin-top: 20px
       text-align: center
+
+
 
 </style>
