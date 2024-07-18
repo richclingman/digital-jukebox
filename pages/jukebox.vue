@@ -1,6 +1,6 @@
 <script setup>
 // const response = await useFetch('/data/songList.json')
-// console.log('response', response);
+// console.log('response', toRaw(response));
 //
 // process.exit(1);
 
@@ -14,7 +14,7 @@ import songList from '/static/data/songList.json' // assert {type: 'json'}
 
 // const songList = songListBuffer.toString();
 // console.log('songList keys', Object.keys(songListBuffer.value));
-console.log('songList', songList);
+// console.log('songList', songList);
 
 definePageMeta({
   layout: 'clean'
@@ -42,11 +42,19 @@ const changeGenre = (genre) => {
     selectedGenre.value = genre;
     console.log('selectedGenre', selectedGenre.value);
 
-    console.log('selectedGenre.value.key', selectedGenre.value.key);
+    const selectedGenreKey = selectedGenre.value.key;
+    console.log('selectedGenre.value.key', selectedGenreKey);
 
-    validDecades.value = songList[selectedGenre.value.key];
+    const songListDecades = songList[selectedGenreKey];
+    console.log('songListDecades', songListDecades);
+
+    const decadeList = Object.keys(songListDecades).map(d => parseInt(d));
+    console.log('decadeList', decadeList);
+
+    validDecades.value = decadeList;
     console.log('validDecades', validDecades.value);
-    // changeDecade(selectedDecade);
+
+    changeDecade(selectedDecade);
   } catch (error) {
     console.error('ERROR:', error);
   }
@@ -54,8 +62,8 @@ const changeGenre = (genre) => {
 
 const isDecadeValid = (decade) => {
   try {
-    const valid = validDecades.value[decade] !== undefined;
-    console.log('valid decade', decade, valid, validDecades.value[decade]);
+    const valid = validDecades.value.includes(decade);
+    console.log('valid decade', decade, typeof decade, valid, validDecades.value[decade]);
     return valid;
   } catch (error) {
     console.error('ERROR:', error);
@@ -64,31 +72,43 @@ const isDecadeValid = (decade) => {
 
 const changeDecade = (decade) => {
   try {
+    console.log('new decade', decade, typeof decade)
+
+    //TODO: If decade not valid for this genre, select valid decade
+    if (!isDecadeValid(decade)) {
+      decade = validDecades.value[0];
+      console.error('isDecadeValid?', decade, validDecades.value);
+    }
+
     selectedDecade.value = decade;
 
-    console.log('songList', songList.country[1970]);
-    console.log('G', selectedGenre.value);
-    console.log('-', songList[selectedGenre.value.key]);
-    console.log('D', selectedDecade.value);
-    console.log('-', songList[selectedGenre.value.key][selectedDecade.value]);
+
+    // console.log('songList', songList.country[1970]);
+    // console.log('G', selectedGenre.value);
+    // console.log('-', songList[selectedGenre.value.key]);
+    // console.log('D', selectedDecade.value);
+    // console.log('-', songList[selectedGenre.value.key][selectedDecade.value]);
 
     validYears.value = songList[selectedGenre.value.key][selectedDecade.value];
     years.value = [];
 
-    for (let year = decade; year < decade + 10; year++) {
+    // TODO: use date.year instead of 2024
+    for (let year = decade; year < 10 + decade && year <= 2024; year++) {
       years.value.push(year);
     }
 
-    // changeYear(decade);
+    changeYear(decade);
   } catch (error) {
     console.error('ERROR:', error);
   }
 }
 
+// TODO: Make validYears an array of int. Use ....value.includes(year) as test
+
 const isYearValid = (year) => {
   try {
     const valid = validYears.value[year] !== undefined;
-    // console.log('valid year', year, valid, validYears.value[year]);
+    console.log('valid year', year, valid, validYears.value[year]);
     return valid;
   } catch (error) {
     console.error('ERROR:', error);
@@ -96,6 +116,9 @@ const isYearValid = (year) => {
 }
 
 const changeYear = (year) => {
+
+  //TODO: If year not valid for this genre/decade, select valid year
+
   selectedYear.value = year;
 }
 
@@ -109,7 +132,7 @@ changeGenre(startupGenre);
 changeDecade(1970);
 changeYear(1974);
 
-console.log('selectedGenre', selectedGenre.value);
+// console.log('selectedGenre', selectedGenre.value);
 // console.log('selectedDecade', selectedDecade.value);
 // console.log('selectedYear', selectedYear.value);
 // console.log('selectedSong', selectedSong.value);
@@ -143,9 +166,8 @@ console.log('selectedGenre', selectedGenre.value);
       </div>
 
       <div class="years">
-        <button v-for="year in years" class="decade" @click="changeYear(year)" :disabled="!isYearValid(year)">{{
-            year
-          }}
+        <button v-for="year in years" class="decade" @click="changeYear(year)" :disabled="!isYearValid(year)">
+          {{ year }}
         </button>
       </div>
     </div>
