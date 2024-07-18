@@ -1,6 +1,6 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
-const {writeFileSync} = require("node:fs");
+import axios from "axios";
+import cheerio from "cheerio";
+import {writeFileSync} from "node:fs";
 
 const ytRegex = /\/vi\/([^/]*)\//;
 const host = 'https://playback.fm';
@@ -105,7 +105,7 @@ async function scrapeTopSongs(genre, year) {
 
     const genres = ['top-100-songs', 'rock', 'country', 'rnb'];
 
-    const STARTING_YEAR = 1904; // Do one year at a time (per decade) to reduce load on server
+    const STARTING_YEAR = 1906; // Do one year at a time (per decade) to reduce load on server
 
     for (let genre of genres) {
         // TODO: use date.year instead of "2024"
