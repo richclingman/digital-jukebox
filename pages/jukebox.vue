@@ -42,6 +42,8 @@ const validYears = ref([]);
 const decades = ref([1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020]);
 const years = ref([]);
 
+const songs = ref([]);
+
 const changeGenre = (genre) => {
   try {
     selectedGenre.value = genre;
@@ -107,6 +109,13 @@ const changeYear = (year) => {
   }
 
   selectedYear.value = year;
+
+  selectSongs();
+}
+
+function selectSongs() {
+  songs.value = songList[selectedGenre.value.key][selectedDecade.value][selectedYear.value]
+  console.log('songs', songs.value)
 }
 
 const startupGenre = genres.value[startupSettings.genreIndex];
@@ -148,6 +157,13 @@ changeYear(startupSettings.year);
       <div class="years">
         <button v-for="year in years" class="decade" :class="{selected: selectedYear === year}" @click="changeYear(year)" :disabled="!isYearValid(year)">
           {{ year }}
+        </button>
+      </div>
+
+      <div class="songs">
+        <button v-for="song in songs" class="song" @click="playSong(song)">
+          <div class="songTitle">{{song.rank}}: {{ song.title }}</div>
+          <div class="songArtist">{{song.artist}}</div>
         </button>
       </div>
     </div>

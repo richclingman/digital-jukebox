@@ -42,9 +42,9 @@ for (let genre of genres) {
             songList[genre][decade] = {};
         }
 
-        songList[genre][decade][year] = {};
+        songList[genre][decade][year] = [];
         for (let song of songs) {
-            songList[genre][decade][year][song.rank] = song;
+            songList[genre][decade][year].push(song);
         }
 
         // process.exit(1);
