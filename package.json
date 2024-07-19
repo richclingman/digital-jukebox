@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "deploy": "nuxt generate && netlify deploy -d .output/public",
+    "deploy-prod": "nuxt generate && netlify deploy -d .output/public --prod",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -16,18 +18,20 @@
     "@nuxt/devtools": "latest",
     "@types/node": "^18.17.3",
     "@vite-pwa/nuxt": "^0.1.0",
+    "autoprefixer": "^10.4.19",
     "axios": "^1.7.2",
     "cheerio": "^1.0.0-rc.12",
     "nuxt": "^3.6.5",
+    "postcss": "^8.4.39",
     "sass": "^1.63.3",
-    "sass-loader": "^10.4.1"
+    "sass-loader": "^10.4.1",
+    "tailwindcss": "^3.4.6"
   },
   "dependencies": {
     "@vueuse/components": "^10.1.2",
     "@vueuse/core": "^10.1.2",
     "@vueuse/integrations": "^10.1.2",
-    "@vueuse/nuxt": "^10.1.2",
-    "bulma": "^0.9.4"
+    "@vueuse/nuxt": "^10.1.2"
   },
   "author": "Rich Clingman, K0OZK"
 }

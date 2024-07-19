@@ -37,6 +37,12 @@ export default defineNuxtConfig({
     css: [
         "@/assets/style/main.sass",
     ],
+    postcss: {
+        plugins: {
+            tailwindcss: {},
+            autoprefixer: {},
+        },
+    },
     vite: {
         css: {
             preprocessorOptions: {
