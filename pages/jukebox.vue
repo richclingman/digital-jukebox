@@ -164,26 +164,31 @@ changeYear(startupSettings.year);
         <div>{{ selectedYear }}</div>
       </div>
 
-      <button v-for="genre in genres" class="genre" :class="{selected: selectedGenre === genre}" @click="changeGenre(genre)">{{ genre.name }}</button>
+      <button v-for="genre in genres" class="genre" :class="{selected: selectedGenre === genre}"
+              @click="changeGenre(genre)">{{ genre.name }}
+      </button>
     </div>
 
     <div class="main">
       <div class="fullwidth">
-        <button v-for="decade in decades" class="decade" :class="{selected: selectedDecade === decade}" @click="changeDecade(decade)"
+        <button v-for="decade in decades" class="decade" :class="{selected: selectedDecade === decade}"
+                @click="changeDecade(decade)"
                 :disabled="!isDecadeValid(decade)">{{ decade }}
         </button>
       </div>
 
       <div class="years">
-        <button v-for="year in years" class="decade" :class="{selected: selectedYear === year}" @click="changeYear(year)" :disabled="!isYearValid(year)">
+        <button v-for="year in years" class="decade" :class="{selected: selectedYear === year}"
+                @click="changeYear(year)" :disabled="!isYearValid(year)">
           {{ year }}
         </button>
       </div>
 
       <div class="songs">
-        <button v-for="(song, index) in songs" class="song" :class="{selected: selectedSongIndex === index}" @click="playSong(index)">
-          <div class="songTitle">{{song.rank}}: {{ song.title }}</div>
-          <div class="songArtist">{{song.artist}}</div>
+        <button v-for="(song, index) in songs" class="song" :class="{selected: selectedSongIndex === index}"
+                @click="playSong(index)">
+          <div class="songTitle">{{ song.rank }}: {{ song.title }}</div>
+          <div class="songArtist">{{ song.artist }}</div>
         </button>
       </div>
     </div>
@@ -195,8 +200,8 @@ changeYear(startupSettings.year);
         <div class="time">9:35 PM</div>
         <div class="date">September 28, 2024</div>
 
-        <div class="location">{{startupSettings.location}}</div>
-        <div class="city-state">{{startupSettings.city}}, {{startupSettings.state}}</div>
+        <div class="location">{{ startupSettings.location }}</div>
+        <div class="city-state">{{ startupSettings.city }}, {{ startupSettings.state }}</div>
       </div>
 
       <div class="player">
