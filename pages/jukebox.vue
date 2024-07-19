@@ -4,6 +4,10 @@ const startupSettings = {
   genreIndex: 1,
   decade: 1970,
   year: 1974,
+
+  location: 'NorthPark Assisted Living',
+  city: 'Ozark',
+  state: 'Missouri',
 }
 
 // const response = await useFetch('/data/songList.json')
@@ -184,6 +188,18 @@ changeYear(startupSettings.year);
       </div>
     </div>
 
+    <div class="right-bar">
+      <div class="clock">
+        <div class="time"></div>
+        <div class="location">{{startupSettings.location}}</div>
+        <div class="city-state">{{startupSettings.city}}, {{startupSettings.state}}</div>
+      </div>
+
+      <div class="player">
+        Player
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -196,7 +212,7 @@ $left-bar-color: burlywood
 
 .jukebox
   display: grid
-  grid-template-columns: 225px 1fr
+  grid-template-columns: 225px 1fr 450px
   column-gap: 0
   height: 100vw
   width: 100vw
