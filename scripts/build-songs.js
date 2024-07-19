@@ -1,11 +1,4 @@
-// empty songs.json
-// for each genra
-// for each year
-// read json
-// append to songs.json
-
 import {existsSync, readFileSync, writeFileSync} from "node:fs";
-
 
 const songList = {};
 const genres = ['top-100-songs', 'rock', 'country', 'rnb'];
@@ -35,34 +28,24 @@ for (let genre of genres) {
             continue;
         }
 
-        // console.log(songs[0]);
-        // console.log('songList', songList);
-
         if (songList[genre][decade] === undefined) {
             songList[genre][decade] = {};
         }
 
         songList[genre][decade][year] = [];
         for (let song of songs) {
+            delete song.artistUrl;
+            delete song.songUrl;
+            delete song.metaUrl;
+            delete song.mobileHideUrl;
+
+            song.youtubeImageUrl = song.youtubeUrl;
+            delete song.youtubeUrl;
+
             songList[genre][decade][year].push(song);
         }
-
-        // process.exit(1);
-
     }
 
-    // console.log('songlist', JSON.stringify(songList, null, 2));
-
-    writeFileSync('../static/data/songList.json', JSON.stringify(songList, null, 2));
-
+    writeFileSync('../static/data/songList-spaced.json', JSON.stringify(songList, null, 2));
+    writeFileSync('../static/data/songList.json', JSON.stringify(songList));
 }
-
-/*
-
-songs: {'top': {1900: {1: {song}, ...}, ...}
-
- */
-
-
-
-
