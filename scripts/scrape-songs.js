@@ -105,7 +105,7 @@ async function scrapeTopSongs(genre, year) {
 
     const genres = ['top-100-songs', 'rock', 'country', 'rnb'];
 
-    const STARTING_YEAR = 1908; // Do one year at a time (per decade) to reduce load on server
+    const STARTING_YEAR = 1909; // Do one year at a time (per decade) to reduce load on server
 
     for (let genre of genres) {
         // TODO: use date.year instead of "2024"
