@@ -34,7 +34,7 @@ const genres = ref([
 const selectedGenre = ref({});
 const selectedDecade = ref(0);
 const selectedYear = ref(0);
-const selectedSong = ref('');
+const selectedSongIndex = ref(-1);
 
 const validDecades = ref([]);
 const validYears = ref([]);
@@ -46,6 +46,12 @@ const songs = ref([]);
 
 const changeGenre = (genre) => {
   try {
+    if (selectedGenre.value === genre.value) {
+      return;
+    }
+
+    selectedSongIndex.value = -1;
+
     selectedGenre.value = genre;
     const selectedGenreKey = selectedGenre.value.key;
     const songListDecades = songList[selectedGenreKey];
@@ -70,6 +76,7 @@ const changeDecade = (decade) => {
   try {
     if (!isDecadeValid(decade)) {
       decade = validDecades.value[0];
+      selectedSongIndex.value = -1;
     }
 
     selectedDecade.value = decade;
@@ -106,17 +113,26 @@ const isYearValid = (year) => {
 const changeYear = (year) => {
   if (!isYearValid(year)) {
     year = validYears.value[0];
+    selectedSongIndex.value = -1;
   }
 
   selectedYear.value = year;
 
-  selectSongs();
+  showSongs();
 }
 
-function selectSongs() {
+const showSongs = () => {
   songs.value = songList[selectedGenre.value.key][selectedDecade.value][selectedYear.value]
   console.log('songs', songs.value)
 }
+
+const playSong = (songIndex) => {
+  console.log('playSong', songIndex);
+  selectedSongIndex.value = songIndex;
+}
+
+
+// ===================== STARTUP ====================
 
 const startupGenre = genres.value[startupSettings.genreIndex];
 
@@ -161,7 +177,7 @@ changeYear(startupSettings.year);
       </div>
 
       <div class="songs">
-        <button v-for="song in songs" class="song" @click="playSong(song)">
+        <button v-for="(song, index) in songs" class="song" :class="{selected: selectedSongIndex === index}" @click="playSong(index)">
           <div class="songTitle">{{song.rank}}: {{ song.title }}</div>
           <div class="songArtist">{{song.artist}}</div>
         </button>
@@ -255,6 +271,16 @@ $left-bar-color: burlywood
         &.selected
           background-color: $box-selected-background-color
 
+    .songs
+
+      button
+        width: 20%
+        height: 100px
+        background-color: $box-background-color
+        border: 1px solid $box-border-color
+
+        &.selected
+          background-color: $box-selected-background-color
 
     .separator
       margin-top: 20px
