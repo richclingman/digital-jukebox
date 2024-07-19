@@ -190,7 +190,11 @@ changeYear(startupSettings.year);
 
     <div class="right-bar">
       <div class="clock">
-        <div class="time"></div>
+        <div class="day-of-week">Wednesday</div>
+        <div class="part-of-day">Evening</div>
+        <div class="time">9:35 PM</div>
+        <div class="date">September 28, 2024</div>
+
         <div class="location">{{startupSettings.location}}</div>
         <div class="city-state">{{startupSettings.city}}, {{startupSettings.state}}</div>
       </div>
@@ -301,5 +305,26 @@ $left-bar-color: burlywood
     .separator
       margin-top: 20px
       text-align: center
+
+  .right-bar
+
+    .clock
+      border: 5px solid $box-border-color
+      height: 250px
+      text-align: center
+      font-weight: bold
+      font-size: 1.2em
+      line-height: 1.5em
+
+      .time
+        font-size: 3em
+        line-height: 1.5em
+
+      .day-of-week
+        font-size: 1.5em
+
+      .part-of-day
+        font-size: 1.5em
+
 
 </style>
