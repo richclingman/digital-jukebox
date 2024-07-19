@@ -1,5 +1,7 @@
 <script setup>
 
+import songList from '/static/data/songList.json' // assert {type: 'json'}
+
 const startupSettings = {
   genreIndex: 1,
   decade: 1970,
@@ -12,8 +14,6 @@ const startupSettings = {
 
 // const response = await useFetch('/data/songList.json')
 // console.log('response', toRaw(response));
-
-import songList from '/static/data/songList.json' // assert {type: 'json'}
 
 // import {readFileSync} from "node:fs";
 //
@@ -39,6 +39,7 @@ const selectedGenre = ref({});
 const selectedDecade = ref(0);
 const selectedYear = ref(0);
 const selectedSongIndex = ref(-1);
+const selectedSong = ref({});
 
 const validDecades = ref([]);
 const validYears = ref([]);
@@ -55,6 +56,7 @@ const changeGenre = (genre) => {
     }
 
     selectedSongIndex.value = -1;
+    selectedSong.value = {};
 
     selectedGenre.value = genre;
     const selectedGenreKey = selectedGenre.value.key;
@@ -83,6 +85,7 @@ const changeDecade = (decade) => {
     }
 
     selectedSongIndex.value = -1;
+    selectedSong.value = {};
 
     if (!isDecadeValid(decade)) {
       decade = validDecades.value[0];
@@ -125,6 +128,8 @@ const changeYear = (year) => {
   }
 
   selectedSongIndex.value = -1;
+  selectedSong.value = {};
+
   if (!isYearValid(year)) {
     year = validYears.value[0];
   }
@@ -142,6 +147,7 @@ const showSongs = () => {
 const playSong = (songIndex) => {
   console.log('playSong', songIndex);
   selectedSongIndex.value = songIndex;
+  selectedSong.value = songs.value[songIndex];
 }
 
 
@@ -213,9 +219,7 @@ changeYear(startupSettings.year);
         <div class="city-state">{{ startupSettings.city }}, {{ startupSettings.state }}</div>
       </div>
 
-      <div class="player">
-        Player
-      </div>
+      <Player :song="selectedSong"/>
     </div>
 
   </div>
