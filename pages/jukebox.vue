@@ -50,7 +50,7 @@ const songs = ref([]);
 
 const changeGenre = (genre) => {
   try {
-    if (selectedGenre.value === genre.value) {
+    if (selectedGenre.value === genre) {
       return;
     }
 
@@ -78,9 +78,14 @@ const isDecadeValid = (decade) => {
 
 const changeDecade = (decade) => {
   try {
+    if (selectedDecade.value === decade) {
+      return;
+    }
+
+    selectedSongIndex.value = -1;
+
     if (!isDecadeValid(decade)) {
       decade = validDecades.value[0];
-      selectedSongIndex.value = -1;
     }
 
     selectedDecade.value = decade;
@@ -115,9 +120,13 @@ const isYearValid = (year) => {
 }
 
 const changeYear = (year) => {
+  if (selectedYear.value === year) {
+    return;
+  }
+
+  selectedSongIndex.value = -1;
   if (!isYearValid(year)) {
     year = validYears.value[0];
-    selectedSongIndex.value = -1;
   }
 
   selectedYear.value = year;
