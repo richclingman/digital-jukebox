@@ -10,12 +10,14 @@ defineProps(['song', 'selected']);
 
     <div class="background"></div>
 
-    <div class="song-button">
-      <div>PLAY</div>
-    </div>
+    <div class="foreground">
+      <div class="song-button">
+        <div>PLAY</div>
+      </div>
 
-    <div class="songTitle">{{ song.rank }}: {{ song.title }}</div>
-    <div class="songArtist">{{ song.artist }}</div>
+      <div class="text-white songTitle ml-6 truncate text-2xl font-bold">{{ song.rank }}: {{ song.title }}</div>
+      <div class="text-white songArtist ml-10 truncate text-2xl">{{ song.artist }}</div>
+    </div>
   </div>
 </template>
 
@@ -29,6 +31,10 @@ $left-bar-color: burlywood
 .song
   width: 25%
 
+  .foreground
+    position: relative
+    top: -63px
+
   .background
     width: 182px
     height: 66px
@@ -39,6 +45,7 @@ $left-bar-color: burlywood
     scale: 173% 249%
     position: relative
     left: 66px
+    top: 50px
 
   .song-button
     width: 80px
