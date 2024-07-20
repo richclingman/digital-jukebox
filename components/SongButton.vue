@@ -4,6 +4,11 @@ defineProps(['song', 'selected']);
 </script>
 
 <template>
+  <div class="song-button">
+    PLAY
+  </div>
+
+
   <button :class="{selected: selected}"
           @click="$emit('click', song.rank - 1)">
     <div class="songTitle">{{ song.rank }}: {{ song.title }}</div>
@@ -19,6 +24,11 @@ $box-border-color: #999
 $left-bar-color: burlywood
 
 .songs
+
+  .song-button
+    width: 80px
+    height: 46px
+    background: url(/controls/UIbottonsKit-grid20.png) -296px -191px
 
   button
     width: 20%
