@@ -1,19 +1,21 @@
 <script setup lang="ts">
-defineProps(['song', 'selected']);
+defineProps(['song', 'selected', 'noPlay', 'genre', 'year']);
 
 </script>
 
 <template>
 
-  <div class="song" :class="{selected: selected}"
+  <div v-if="song.title" class="song" :class="{selected: selected, 'no-play': noPlay}"
        @click="$emit('click', song.rank - 1)">
 
     <div class="background"></div>
 
     <div class="foreground">
-      <div class="song-button">
+      <div v-if="!noPlay" class="song-button">
         <div>PLAY</div>
       </div>
+
+      <div v-if="noPlay" class="songTitle ml-6 truncate leading-3">{{ year }}: {{ genre }}</div>
 
       <div class="songTitle ml-6 truncate text-2xl font-bold">{{ song.rank }}: {{ song.title }}</div>
       <div class="songArtist ml-10 truncate text-2xl">{{ song.artist }}</div>
@@ -79,5 +81,13 @@ $left-bar-color: burlywood
         div
           color: greenyellow
 
+.song
+  &.no-play
+      width: 310px
+      height: fit-content
+
+      .foreground
+        top: -17px
+        left: 7px
 
 </style>
