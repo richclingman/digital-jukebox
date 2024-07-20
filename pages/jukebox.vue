@@ -298,9 +298,11 @@ $left-bar-color: burlywood
         &.selected
           background-color: $box-selected-background-color
 
-    .separator
-      margin-top: 20px
-      text-align: center
+    .songs
+      display: flex
+      align-content: stretch
+      flex-direction: row
+      flex-wrap: wrap
 
 
 </style>

@@ -4,16 +4,17 @@ defineProps(['song', 'selected']);
 </script>
 
 <template>
-  <div class="song-button">
-    <div>PLAY</div>
-  </div>
 
+  <div class="song" :class="{selected: selected}"
+       @click="$emit('click', song.rank - 1)">
 
-  <button :class="{selected: selected}"
-          @click="$emit('click', song.rank - 1)">
+    <div class="song-button">
+      <div>PLAY</div>
+    </div>
+
     <div class="songTitle">{{ song.rank }}: {{ song.title }}</div>
     <div class="songArtist">{{ song.artist }}</div>
-  </button>
+  </div>
 </template>
 
 <style scoped lang="sass">
@@ -23,7 +24,11 @@ $box-selected-background-color: aliceblue
 $box-border-color: #999
 $left-bar-color: burlywood
 
-.songs
+.song
+  width: 20%
+  height: 100px
+  background-color: $box-background-color
+  border: 1px solid $box-border-color
 
   .song-button
     width: 80px
@@ -38,12 +43,14 @@ $left-bar-color: burlywood
       @apply font-bold
 
 
-  button
-    width: 20%
-    height: 100px
-    background-color: $box-background-color
-    border: 1px solid $box-border-color
+  &.selected
+    background-color: $box-selected-background-color
 
-    &.selected
-      background-color: $box-selected-background-color
+    .song-button
+      background: url(/controls/UIbottonsKit.png) -492px -138px
+
+      div
+        color: greenyellow
+
+
 </style>
