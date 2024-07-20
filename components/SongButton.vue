@@ -5,7 +5,7 @@ defineProps(['song', 'selected']);
 
 <template>
   <div class="song-button">
-    PLAY
+    <div>PLAY</div>
   </div>
 
 
@@ -28,7 +28,15 @@ $left-bar-color: burlywood
   .song-button
     width: 80px
     height: 46px
-    background: url(/controls/UIbottonsKit-grid20.png) -296px -191px
+    background: url(/controls/UIbottonsKit.png) -296px -138px
+    text-align: center
+    vertical-align: middle
+
+    div
+      padding-top: 10px
+      color: antiquewhite
+      @apply font-bold
+
 
   button
     width: 20%
