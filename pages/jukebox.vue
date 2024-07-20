@@ -225,10 +225,11 @@ $left-bar-color: burlywood
   display: grid
   grid-template-columns: 225px 1fr 450px
   column-gap: 0
-  height: 100vw
+  height: 100vh
   width: 100vw
 
   .left-bar
+    height: 100vh
     background-color: $left-bar-color
 
     img
@@ -309,6 +310,7 @@ $left-bar-color: burlywood
       display: flex
       flex: 1 1 auto
       overflow-y: auto
+      overflow-x: hidden
       align-content: stretch
       flex-direction: row
       flex-wrap: wrap
