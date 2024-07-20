@@ -14,8 +14,8 @@ const now = new Date();
 const hour = now.getHours();
 const amPm = hour > 11 ? "PM" : "AM";
 const hour12 = hour > 12 ? hour - 12 : hour;
-
-time.value = `${hour12}:${now.getMinutes()} ${amPm}`;
+const minutes = ('0' + now.getMinutes()).slice(-2);
+time.value = `${hour12}:${minutes} ${amPm}`;
 
 date.value = new Intl.DateTimeFormat('en-US', {month: 'long', day: 'numeric', 'year': 'numeric'}).format(now);
 console.log('df', date.value)
