@@ -1,6 +1,6 @@
 <script setup>
 
-import songList from '/static/data/songList.json' // assert {type: 'json'}
+import songList from '/static/data/songList.json'
 
 const startupSettings = {
   genreIndex: 1,
@@ -200,24 +200,15 @@ changeYear(startupSettings.year);
       </div>
 
       <div class="songs">
-        <button v-for="(song, index) in songs" class="song" :class="{selected: selectedSongIndex === index}"
-                @click="playSong(index)">
-          <div class="songTitle">{{ song.rank }}: {{ song.title }}</div>
-          <div class="songArtist">{{ song.artist }}</div>
-        </button>
+        <SongButton v-for="(song, index) in songs" :song="song" :selected="selectedSongIndex === index"
+                    @click="playSong(index)"/>
       </div>
     </div>
 
     <div class="right-bar">
-      <div class="clock">
-        <div class="day-of-week">Wednesday</div>
-        <div class="part-of-day">Evening</div>
-        <div class="time">9:35 PM</div>
-        <div class="date">September 28, 2024</div>
-
-        <div class="location">{{ startupSettings.location }}</div>
-        <div class="city-state">{{ startupSettings.city }}, {{ startupSettings.state }}</div>
-      </div>
+      <Clock :location="startupSettings.location"
+             :city="startupSettings.city"
+             :state="startupSettings.state"/>
 
       <Player :genre="selectedGenre.name" :year="selectedYear" :song="selectedSong"/>
     </div>
@@ -309,40 +300,9 @@ $left-bar-color: burlywood
         &.selected
           background-color: $box-selected-background-color
 
-    .songs
-
-      button
-        width: 20%
-        height: 100px
-        background-color: $box-background-color
-        border: 1px solid $box-border-color
-
-        &.selected
-          background-color: $box-selected-background-color
-
     .separator
       margin-top: 20px
       text-align: center
-
-  .right-bar
-
-    .clock
-      border: 5px solid $box-border-color
-      height: 250px
-      text-align: center
-      font-weight: bold
-      font-size: 1.2em
-      line-height: 1.5em
-
-      .time
-        font-size: 3em
-        line-height: 1.5em
-
-      .day-of-week
-        font-size: 1.5em
-
-      .part-of-day
-        font-size: 1.5em
 
 
 </style>
