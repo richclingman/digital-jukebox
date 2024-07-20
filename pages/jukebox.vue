@@ -206,7 +206,7 @@ changeYear(startupSettings.year);
     </div>
 
     <div class="right-bar">
-      <Clock :location="startupSettings.location"
+      <DementiaClock :location="startupSettings.location"
              :city="startupSettings.city"
              :state="startupSettings.state"/>
 
