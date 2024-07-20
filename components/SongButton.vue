@@ -1,12 +1,11 @@
 <script setup lang="ts">
-const props = defineProps(['song', 'selected']);
+defineProps(['song', 'selected']);
 
-console.log('in SongButton', props);
 </script>
 
 <template>
-  <button :class="{selected: selectedSongIndex === index}"
-          @click="playSong(index)">
+  <button :class="{selected: selected}"
+          @click="$emit('click', song.rank - 1)">
     <div class="songTitle">{{ song.rank }}: {{ song.title }}</div>
     <div class="songArtist">{{ song.artist }}</div>
   </button>

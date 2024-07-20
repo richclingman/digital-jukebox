@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const props = defineProps(['genre', 'year', 'song']);
+defineProps(['genre', 'year', 'song']);
 
 const isLoaded = ref(false)
 const isPlaying = ref(false)
@@ -16,15 +16,15 @@ function stateChange(event) {
 
 <template>
   <div class="text-xl font-bold truncate">
-    {{props.year}} {{props.genre}}
+    {{year}} {{genre}}
   </div>
 
   <div class="text-2xl font-bold truncate">
-    {{props.song.rank}}: {{props.song.title}}
+    {{song.rank}}: {{song.title}}
   </div>
 
   <div class="text-xl font-bold">
-    {{props.song.artist}}
+    {{song.artist}}
   </div>
 
   <div>
@@ -38,10 +38,10 @@ function stateChange(event) {
       </ScriptYouTubePlayer>
     </div>
     <div class="text-center">
-      <UAlert v-if="!isLoaded" class="mb-5" size="sm" color="blue" variant="soft" title="Click to load" description="Clicking the video will load the Vimeo iframe and start the video." />
-      <UButton v-if="isLoaded && !isPlaying" @click="play">
+      <div v-if="!isLoaded" class="mb-5" size="sm" color="blue" variant="soft" title="Click to load" description="Clicking the video will load the Vimeo iframe and start the video." />
+      <button v-if="isLoaded && !isPlaying" @click="play">
         Play Video
-      </UButton>
+      </button>
     </div>
 
   </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps(['location', 'city', 'state']);
+defineProps(['location', 'city', 'state']);
 
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 

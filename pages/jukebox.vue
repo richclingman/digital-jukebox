@@ -155,8 +155,6 @@ const playSong = (songIndex) => {
 
 const startupGenre = genres.value[startupSettings.genreIndex];
 
-console.warn('START UP WITH GENRE:', startupGenre);
-
 changeGenre(startupGenre);
 changeDecade(startupSettings.decade);
 changeYear(startupSettings.year);
