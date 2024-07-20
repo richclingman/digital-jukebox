@@ -15,8 +15,8 @@ defineProps(['song', 'selected']);
         <div>PLAY</div>
       </div>
 
-      <div class="text-white songTitle ml-6 truncate text-2xl font-bold">{{ song.rank }}: {{ song.title }}</div>
-      <div class="text-white songArtist ml-10 truncate text-2xl">{{ song.artist }}</div>
+      <div class="songTitle ml-6 truncate text-2xl font-bold">{{ song.rank }}: {{ song.title }}</div>
+      <div class="songArtist ml-10 truncate text-2xl">{{ song.artist }}</div>
     </div>
   </div>
 </template>
@@ -30,16 +30,19 @@ $left-bar-color: burlywood
 
 .song
   width: 25%
+  height: 150px
 
   .foreground
     position: relative
     top: -63px
 
+    .songTitle, .songArtist
+      color: blue
+
   .background
     width: 182px
     height: 66px
-    border: 1px solid #999
-    background: url(/controls/rectangularButtons.png) -423px -85px
+    background: url(/controls/rectangularButtons.png) -423px -11px
     text-align: center
     vertical-align: middle
     scale: 173% 249%
@@ -62,11 +65,19 @@ $left-bar-color: burlywood
   &.selected
     background-color: $box-selected-background-color
 
-    .song-button
-      background: url(/controls/UIbottonsKit.png) -492px -138px
+    .background
+      background: url(/controls/rectangularButtons.png) -423px -85px
 
-      div
-        color: greenyellow
+    .foreground
+
+      .songTitle, .songArtist
+        color: white
+
+      .song-button
+        background: url(/controls/UIbottonsKit.png) -492px -138px
+
+        div
+          color: greenyellow
 
 
 </style>
