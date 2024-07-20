@@ -183,7 +183,7 @@ changeYear(startupSettings.year);
     </div>
 
     <div class="main">
-      <div class="fullwidth">
+      <div class="decades">
         <button v-for="decade in decades" class="decade" :class="{selected: selectedDecade === decade}"
                 @click="changeDecade(decade)"
                 :disabled="!isDecadeValid(decade)">{{ decade }}
@@ -268,17 +268,20 @@ $left-bar-color: burlywood
 
   .main
     width: 100%
+    display: flex
+    flex-direction: column
+    height: 100vh
 
-    .fullwidth
+    .decades
       display: flex
       justify-content: space-between
       align-items: flex-start
-      height: 50px
+      margin-top: 20px
       background-color: $background-color
 
       button.decade
         flex: 1
-        height: 100%
+        height: 50px
         background-color: $box-background-color
         border: 1px solid $box-border-color
         box-sizing: border-box
@@ -289,8 +292,11 @@ $left-bar-color: burlywood
 
     .years
       margin-top: 10px
+      margin-bottom: 20px
+      flex: 0 0 auto
 
       button
+        height: 50px
         width: 75px
         background-color: $box-background-color
         border: 1px solid $box-border-color
@@ -299,7 +305,10 @@ $left-bar-color: burlywood
           background-color: $box-selected-background-color
 
     .songs
+      border-top: 4px solid dodgerblue
       display: flex
+      flex: 1 1 auto
+      overflow-y: auto
       align-content: stretch
       flex-direction: row
       flex-wrap: wrap
