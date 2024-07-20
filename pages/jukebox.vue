@@ -219,7 +219,7 @@ changeYear(startupSettings.year);
         <div class="city-state">{{ startupSettings.city }}, {{ startupSettings.state }}</div>
       </div>
 
-      <Player :song="selectedSong"/>
+      <Player :genre="selectedGenre.name" :year="selectedYear" :song="selectedSong"/>
     </div>
 
   </div>

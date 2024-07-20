@@ -16,6 +16,7 @@
   "devDependencies": {
     "@nuxt/content": "^2.7.2",
     "@nuxt/devtools": "latest",
+    "@nuxt/scripts": "^0.6.4",
     "@types/node": "^18.17.3",
     "@vite-pwa/nuxt": "^0.1.0",
     "autoprefixer": "^10.4.19",
@@ -31,7 +32,8 @@
     "@vueuse/components": "^10.1.2",
     "@vueuse/core": "^10.1.2",
     "@vueuse/integrations": "^10.1.2",
-    "@vueuse/nuxt": "^10.1.2"
+    "@vueuse/nuxt": "^10.1.2",
+    "nuxt-video-player": "^1.0.17"
   },
   "author": "Rich Clingman, K0OZK"
 }
