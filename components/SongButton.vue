@@ -8,6 +8,8 @@ defineProps(['song', 'selected']);
   <div class="song" :class="{selected: selected}"
        @click="$emit('click', song.rank - 1)">
 
+    <div class="background"></div>
+
     <div class="song-button">
       <div>PLAY</div>
     </div>
@@ -25,17 +27,24 @@ $box-border-color: #999
 $left-bar-color: burlywood
 
 .song
-  width: 20%
-  height: 100px
-  background-color: $box-background-color
-  border: 1px solid $box-border-color
+  width: 25%
+
+  .background
+    width: 182px
+    height: 66px
+    border: 1px solid #999
+    background: url(/controls/rectangularButtons.png) -423px -85px
+    text-align: center
+    vertical-align: middle
+    scale: 173% 249%
+    position: relative
+    left: 66px
 
   .song-button
     width: 80px
     height: 46px
     background: url(/controls/UIbottonsKit.png) -296px -138px
     text-align: center
-    vertical-align: middle
 
     div
       padding-top: 10px
