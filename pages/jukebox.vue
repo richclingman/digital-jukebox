@@ -203,12 +203,7 @@ changeYear(startupSettings.year);
     </div>
 
     <div class="main">
-      <div class="decades">
-        <button v-for="decade in decades" class="decade" :class="{selected: selectedDecade === decade}"
-                @click="changeDecade(decade)"
-                :disabled="!isDecadeValid(decade)">{{ decade }}
-        </button>
-      </div>
+      <DecadeList :decades="decades" @changeDecade="changeDecade" :isDecadeValid="isDecadeValid" />
 
       <div class="years">
         <button v-for="year in years" class="decade" :class="{selected: selectedYear === year}"
@@ -295,23 +290,6 @@ $left-bar-color: burlywood
     flex-direction: column
     height: 100vh
 
-    .decades
-      display: flex
-      justify-content: space-between
-      align-items: flex-start
-      margin-top: 20px
-      background-color: $background-color
-
-      button.decade
-        flex: 1
-        height: 50px
-        background-color: $box-background-color
-        border: 1px solid $box-border-color
-        box-sizing: border-box
-        font-weight: bold
-
-        &.selected
-          background-color: $box-selected-background-color
 
     .years
       margin-top: 10px
