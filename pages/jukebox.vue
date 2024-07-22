@@ -12,6 +12,10 @@ const startupSettings = {
   state: 'Missouri',
 }
 
+const emptySong = {
+  ytVideoId: "",
+}
+
 // const response = await useFetch('/data/songList.json')
 // console.log('response', toRaw(response));
 
@@ -48,6 +52,22 @@ const decades = ref([1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990,
 const years = ref([]);
 
 const songs = ref([]);
+const playlists = computed(() => {
+  console.log('computed playlists  selectedSong', selectedSong.value);
+
+  const songInfo = {
+    song: Object.assign({}, selectedSong.value),
+    genre: selectedGenre.value.name,
+    year: selectedYear.value,
+  }
+
+  // // TODO: don't clear array so we can build a playlist
+  const playlist = [];
+  playlist.push(songInfo);
+
+  console.log('computed playList', playlist);
+  return playlist;
+});
 
 const changeGenre = (genre) => {
   try {
@@ -56,7 +76,7 @@ const changeGenre = (genre) => {
     }
 
     selectedSongIndex.value = -1;
-    selectedSong.value = {};
+    selectedSong.value = emptySong;
 
     selectedGenre.value = genre;
     const selectedGenreKey = selectedGenre.value.key;
@@ -85,7 +105,7 @@ const changeDecade = (decade) => {
     }
 
     selectedSongIndex.value = -1;
-    selectedSong.value = {};
+    selectedSong.value = emptySong;
 
     if (!isDecadeValid(decade)) {
       decade = validDecades.value[0];
@@ -128,7 +148,7 @@ const changeYear = (year) => {
   }
 
   selectedSongIndex.value = -1;
-  selectedSong.value = {};
+  selectedSong.value = emptySong;
 
   if (!isYearValid(year)) {
     year = validYears.value[0];
@@ -144,8 +164,8 @@ const showSongs = () => {
   console.log('songs', songs.value)
 }
 
-const playSong = (songIndex) => {
-  console.log('playSong', songIndex);
+const selectSong = (songIndex) => {
+  console.log('selectSong', songIndex);
   selectedSongIndex.value = songIndex;
   selectedSong.value = songs.value[songIndex];
 }
@@ -199,7 +219,7 @@ changeYear(startupSettings.year);
 
       <div class="songs">
         <SongButton v-for="(song, index) in songs" :song="song" :selected="selectedSongIndex === index"
-                    @click="playSong(index)"/>
+                    @click="selectSong(index)"/>
       </div>
     </div>
 
@@ -209,6 +229,8 @@ changeYear(startupSettings.year);
              :state="startupSettings.state"/>
 
       <Player :genre="selectedGenre.name" :year="selectedYear" :song="selectedSong"/>
+
+      <Playlist :playlist="playlists" :song="selectedSong"/>
     </div>
 
   </div>

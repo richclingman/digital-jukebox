@@ -33,11 +33,6 @@ function stateChange(event) {
         </template>
       </ScriptYouTubePlayer>
     </div>
-
-    <div class="songs">
-      <SongButton :no-play="true" :selected="true" :song="song" :genre="genre" :year="year" />
-    </div>
-
   </div>
 </template>
 
