@@ -4,10 +4,9 @@ defineProps(['decades', 'selectedDecade', 'isDecadeValid']);
 
 <template>
   <div class="decades">
-    <button v-for="decade in decades" class="decade" :class="{selected: selectedDecade === decade}"
-            @click="$emit('changeDecade', decade)"
-            :disabled="!isDecadeValid(decade)">{{ decade }}
-    </button>
+    <DecadeButton v-for="decade in decades"
+                  @click="$emit('changeDecade', decade)"
+                  :decade="decade" :selected="selectedDecade === decade" :is-valid="isDecadeValid(decade)" />
   </div>
 </template>
 
@@ -25,14 +24,4 @@ $left-bar-color: burlywood
   margin-top: 20px
   background-color: $background-color
 
-  button.decade
-    flex: 1
-    height: 50px
-    background-color: $box-background-color
-    border: 1px solid $box-border-color
-    box-sizing: border-box
-    font-weight: bold
-
-    &.selected
-      background-color: $box-selected-background-color
 </style>

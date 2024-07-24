@@ -203,7 +203,8 @@ changeYear(startupSettings.year);
     </div>
 
     <div class="main">
-      <DecadeList :decades="decades" @changeDecade="changeDecade" :isDecadeValid="isDecadeValid" />
+      <DecadeList :decades="decades" :selectedDecade="selectedDecade"
+                  @changeDecade="changeDecade" :isDecadeValid="isDecadeValid" />
 
       <div class="years">
         <button v-for="year in years" class="decade" :class="{selected: selectedYear === year}"
