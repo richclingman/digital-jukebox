@@ -9,7 +9,7 @@ defineProps(['decade', 'selected', 'isValid']);
   </button>
 </template>
 
-<style lang="sass">
+<style lang="sass" scoped>
 $background-color: #f0f0f0
 $box-background-color: #ccc
 $box-selected-background-color: aliceblue
@@ -19,11 +19,20 @@ $left-bar-color: burlywood
 .decade
   flex: 1
   height: 50px
-  background-color: $box-background-color
+  background: url(/controls/button-icon-5.png) -107px -49px
+  background-size: 305px 149px
+  color: white
   border: 1px solid $box-border-color
   box-sizing: border-box
   font-weight: bold
 
   &.selected
-    background-color: $box-selected-background-color
+    background: url(/controls/button-icon-5.png) -212px 3px
+    background-size: 305px 149px
+    color: white
+
+  &:disabled
+    background: url(/controls/button-icon-5.png) -107px 3px
+    background-size: 305px 149px
+    color: lightgray
 </style>
