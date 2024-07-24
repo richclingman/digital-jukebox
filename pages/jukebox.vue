@@ -119,7 +119,7 @@ const changeDecade = (decade) => {
     years.value = [];
 
     // TODO: use date.year instead of 2024
-    for (let year = decade; year < 10 + decade && year <= 2024; year++) {
+    for (let year = decade; year < 10 + decade; year++) {
       years.value.push(year);
     }
 
@@ -204,14 +204,10 @@ changeYear(startupSettings.year);
 
     <div class="main">
       <DecadeList :decades="decades" :selectedDecade="selectedDecade"
-                  @changeDecade="changeDecade" :isDecadeValid="isDecadeValid" />
+                  @changeDecade="changeDecade" :isDecadeValid="isDecadeValid"/>
 
-      <div class="years">
-        <button v-for="year in years" class="decade" :class="{selected: selectedYear === year}"
-                @click="changeYear(year)" :disabled="!isYearValid(year)">
-          {{ year }}
-        </button>
-      </div>
+      <YearList :years="years" :selectedYear="selectedYear"
+                @changeYear="changeYear" :isYearValid="isYearValid"/>
 
       <div class="songs">
         <SongButton v-for="(song, index) in songs" :song="song" :selected="selectedSongIndex === index"
@@ -221,8 +217,8 @@ changeYear(startupSettings.year);
 
     <div class="right-bar">
       <DementiaClock :location="startupSettings.location"
-             :city="startupSettings.city"
-             :state="startupSettings.state"/>
+                     :city="startupSettings.city"
+                     :state="startupSettings.state"/>
 
       <Player :genre="selectedGenre.name" :year="selectedYear" :song="selectedSong"/>
 

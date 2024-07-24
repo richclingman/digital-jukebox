@@ -22,12 +22,10 @@ $left-bar-color: burlywood
   background: url(/controls/button-icon-5.png) -107px -49px
   background-size: 305px 149px
   color: white
-  border: 1px solid $box-border-color
-  box-sizing: border-box
   font-weight: bold
 
   &.selected
-    background: url(/controls/button-icon-5.png) -212px 3px
+    background: url(/controls/button-icon-5.png) -210px 4px
     background-size: 305px 149px
     color: white
 
