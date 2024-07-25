@@ -191,15 +191,6 @@ changeYear(startupSettings.year);
         Digital Jukebox
       </div>
 
-      <div class="selected-values">
-        <div>{{ selectedGenre.name }}</div>
-        <div>{{ selectedDecade }}'s</div>
-        <div>{{ selectedYear }}</div>
-      </div>
-
-      <button v-for="genre in genres" class="genre" :class="{selected: selectedGenre === genre}"
-              @click="changeGenre(genre)">{{ genre.name }}
-      </button>
     </div>
 
     <div class="main">
