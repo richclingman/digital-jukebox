@@ -195,17 +195,17 @@ changeYear(startupSettings.year);
 
     <div class="main">
 
-      <Instruction number="1">Select Genre</Instruction>
+      <Instruction number="1">Select a Genre</Instruction>
 
       <GenreList :genres="genres" :selectedGenre="selectedGenre"
                   @changeGenre="changeGenre"/>
 
-      <Instruction number="2">Select Decade</Instruction>
+      <Instruction number="2">Select a Decade</Instruction>
 
       <DecadeList :decades="decades" :selectedDecade="selectedDecade"
                   @changeDecade="changeDecade" :isDecadeValid="isDecadeValid"/>
 
-      <Instruction number="3">Select Year</Instruction>
+      <Instruction number="3">Select a Year</Instruction>
 
       <YearList :years="years" :selectedYear="selectedYear"
                 @changeYear="changeYear" :isYearValid="isYearValid"/>
