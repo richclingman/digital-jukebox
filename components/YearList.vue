@@ -22,6 +22,5 @@ $left-bar-color: burlywood
   justify-content: space-between
   align-items: flex-start
   margin-top: 20px
-  background-color: $background-color
 
 </style>

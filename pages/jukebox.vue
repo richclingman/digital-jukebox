@@ -203,6 +203,10 @@ changeYear(startupSettings.year);
     </div>
 
     <div class="main">
+
+      <GenreList :genres="genres" :selectedGenre="selectedGenre"
+                  @changeGenre="changeGenre"/>
+
       <DecadeList :decades="decades" :selectedDecade="selectedDecade"
                   @changeDecade="changeDecade" :isDecadeValid="isDecadeValid"/>
 

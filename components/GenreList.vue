@@ -1,12 +1,13 @@
 <script setup lang="ts">
-defineProps(['decades', 'selectedDecade', 'isDecadeValid']);
+defineProps(['genres', 'selectedGenre']);
 </script>
 
 <template>
-  <div class="decades">
-    <DecadeButton v-for="decade in decades"
-                  @click="$emit('changeDecade', decade)"
-                  :decade="decade" :selected="selectedDecade === decade" :is-valid="isDecadeValid(decade)" />
+  <div class="genres">
+    <GenreButton v-for="genre in genres"
+                  @click="$emit('changeGenre', genre)"
+                  :genre="genre" :selected="selectedGenre === genre" />
+    <div class="takeup"></div>
   </div>
 </template>
 
@@ -17,10 +18,13 @@ $box-selected-background-color: aliceblue
 $box-border-color: #999
 $left-bar-color: burlywood
 
-.decades
+.genres
   display: flex
   justify-content: space-between
   align-items: flex-start
-  margin-top: 20px
+  margin-top: 5px
+
+  .takeup
+    flex: 1
 
 </style>
