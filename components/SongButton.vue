@@ -83,11 +83,14 @@ $left-bar-color: burlywood
 
 .song
   &.no-play
-      width: 310px
-      height: fit-content
+    width: 310px
+    height: fit-content
 
-      .foreground
-        top: -17px
-        left: 7px
+    .songArtist
+      line-height: 0.9em
+
+    .foreground
+      top: -17px
+      left: 7px
 
 </style>

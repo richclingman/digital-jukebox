@@ -204,14 +204,22 @@ changeYear(startupSettings.year);
 
     <div class="main">
 
+      <Instruction number="1">Select Genre</Instruction>
+
       <GenreList :genres="genres" :selectedGenre="selectedGenre"
                   @changeGenre="changeGenre"/>
+
+      <Instruction number="2">Select Decade</Instruction>
 
       <DecadeList :decades="decades" :selectedDecade="selectedDecade"
                   @changeDecade="changeDecade" :isDecadeValid="isDecadeValid"/>
 
+      <Instruction number="3">Select Year</Instruction>
+
       <YearList :years="years" :selectedYear="selectedYear"
                 @changeYear="changeYear" :isYearValid="isYearValid"/>
+
+      <Instruction number="4">Choose a Song</Instruction>
 
       <div class="songs">
         <SongButton v-for="(song, index) in songs" :song="song" :selected="selectedSongIndex === index"
@@ -293,7 +301,6 @@ $left-bar-color: burlywood
 
 
     .years
-      margin-top: 10px
       margin-bottom: 20px
       flex: 0 0 auto
 
